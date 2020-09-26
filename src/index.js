@@ -16,6 +16,22 @@ class EasyAndroidEmulatorCommand extends Command {
     // 7. Unless the user has choosen to persist the avd, delete the avd using `avdmanager`
 
   }
+
+/**
+ * Execute shell commands.
+ * @param {String} cmd Command to be executed
+ * @return {Object} { stdout: String, stderr: String }
+ */
+async function execute(cmd) {
+  return new Promise(function (resolve, reject) {
+    shell.exec(cmd, (err, stdout, stderr) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve({stdout, stderr})
+      }
+    })
+  })
 }
 
 EasyAndroidEmulatorCommand.description = `Create and run android emulators in a quick &amp; easy manner with just device name/model.
