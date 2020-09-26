@@ -15,6 +15,21 @@ class EasyAndroidEmulatorCommand extends Command {
     // 6. Start the emulator using `emulator`.
     // 7. Unless the user has choosen to persist the avd, delete the avd using `avdmanager`
 
+    shell.echo(`Hello ${name}`)
+
+    let avdName = 'generic_30'
+    let systemImage = 'system-images;android-30;google_apis_playstore;x86'
+
+    await downloadSystemImage(systemImage)
+    await createEmulator(avdName, systemImage)
+    await startEmulator(avdName)
+
+    // await deleteEmulator(avdName)
+
+    shell.echo(`Bye ${name}`)
+  }
+}
+
 async function downloadSystemImage(systemImage) {
   if (!shell.which('sdkmanager')) {
     shell.echo('Sorry, this scrip requires sdkmanager')
