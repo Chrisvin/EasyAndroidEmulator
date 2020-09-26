@@ -1,0 +1,48 @@
+{
+  "name": "EasyAndroidEmulator",
+  "description": "Create and run android emulators in a quick & easy manner with just device name/model.",
+  "version": "0.0.0",
+  "author": "Chrisvin Jem Peniel",
+  "bin": {
+    "emulate": "./bin/run"
+  },
+  "bugs": "https://github.com/Chrisvin/EasyAndroidEmulator/issues",
+  "dependencies": {
+    "@oclif/command": "^1.8.0",
+    "@oclif/config": "^1.17.0",
+    "@oclif/plugin-help": "^3.2.0"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.22.2",
+    "@oclif/test": "^1.2.7",
+    "chai": "^4.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-oclif": "^3.1.0",
+    "mocha": "^5.2.0",
+    "nyc": "^14.1.1",
+    "rimraf": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/src"
+  ],
+  "homepage": "https://github.com/Chrisvin/EasyAndroidEmulator",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "oclif": {
+    "bin": "emulate"
+  },
+  "repository": "Chrisvin/EasyAndroidEmulator",
+  "scripts": {
+    "posttest": "eslint .",
+    "prepack": "oclif-dev readme",
+    "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
+    "version": "oclif-dev readme && git add README.md"
+  }
+}
