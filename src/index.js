@@ -15,7 +15,41 @@ class EasyAndroidEmulatorCommand extends Command {
     // 6. Start the emulator using `emulator`.
     // 7. Unless the user has choosen to persist the avd, delete the avd using `avdmanager`
 
+async function downloadSystemImage(systemImage) {
+  if (!shell.which('sdkmanager')) {
+    shell.echo('Sorry, this scrip requires sdkmanager')
+    shell.exit(1)
   }
+
+  return execute(`sdkmanager --install "${systemImage}"`)
+}
+
+async function createEmulator(avdName, systemImage) {
+  if (!shell.which('avdmanager')) {
+    shell.echo('Sorry, this scrip requires avdmanager')
+    shell.exit(1)
+  }
+
+  return execute(`echo no | avdmanager --verbose create avd --force --name "${avdName}" --package "${systemImage}"`)
+}
+
+async function deleteEmulator(avdName) {
+  if (!shell.which('avdmanager')) {
+    shell.echo('Sorry, this scrip requires avdmanager')
+    shell.exit(1)
+  }
+
+  return execute(`avdmanager --verbose delete avd --name  "${avdName}"`)
+}
+
+async function startEmulator(avdName) {
+  if (!shell.which('emulator')) {
+    shell.echo('Sorry, this script requires emulator')
+    shell.exit(1)
+  }
+
+  return execute(`emulator @${avdName} &`)
+}
 
 /**
  * Execute shell commands.
