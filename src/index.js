@@ -98,27 +98,46 @@ class EasyAndroidEmulatorCommand extends Command {
 async function findSystemImage(androidVersion, preferredAbi, verbose) {
   checkShellCommand('sdkmanager')
 
-  var systemImage = ''
+  var images = ['']
   if (shell.which('find')) {
     // Probably a windows system
     let {stdout} = await execute(`sdkmanager --list --verbose | find "${androidVersion}"`, verbose)
-    let imagesWithPreferedAbi = stdout.toString().split('\n')
-    imagesWithPreferedAbi.forEach(function (line) {
-      if (line.includes('system-images')) {
-        if (line.includes(`${preferredAbi}`)) {
-          systemImage = line
-        } else if (systemImage === '') {
-          //
-        }
-      }
-    })
+    images = stdout.toString().split('\n')
   } else if (shell.which('grep')) {
     // Probably unix based system
+    let {stdout} = await execute(`sdkmanager --list --verbose | grep "${androidVersion}"`, verbose)
+    images = stdout.toString().split('\n')
   } else {
-    // Have to go the hard route of parsing output line by line.
-    // systemImage = `system-images;android-${androidVersion};${api};${preferredAbi}`
+    // Filter out suitable system images using android version as filter
+    let {stdout} = await execute('sdkmanager --list --verbose', verbose)
+    images = stdout.toString().split('\n').filter(function (str) {
+      return str.includes(androidVersion)
+    })
   }
-  return systemImage
+  return  getSuitableSystemImage(images, preferredAbi)
+}
+
+/**
+* @param {Array} images Array of system image strings
+* @param {String} preferredAbi The preferred ABI for the system image
+* @return {String} The most suitable system image, from the given array of images.
+*/
+function getSuitableSystemImage(images, preferredAbi) {
+  var resultImage = ''
+  images.forEach(function (line) {
+    if (line.includes('system-images')) {
+      if (line.includes(`${preferredAbi}`)) {
+        if (!resultImage.includes(`${preferredAbi}`) || line.includes('default') || line.includes('google_apis') || line.includes('google_apis_playstore')) {
+          resultImage = line
+        }
+      } else if (resultImage === '') {
+        if (line.includes('default') || line.includes('google_apis') || line.includes('google_apis_playstore')) {
+          resultImage = line
+        }
+      }
+    }
+  })
+  return resultImage
 }
 
 /**
