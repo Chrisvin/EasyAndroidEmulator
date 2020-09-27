@@ -112,8 +112,20 @@ async function deleteEmulator(avdName) {
     shell.echo('Sorry, this scrip requires avdmanager')
     shell.exit(1)
   }
+async function checkForAvd(avdName) {
+  checkShellCommand('avdmanager')
 
   return execute(`avdmanager --verbose delete avd --name  "${avdName}"`)
+  let {stdout} = await execute('emulator -list-avds')
+  let avds = stdout.toString().split('\r\n')
+  var result = false
+  avds.forEach(function (line) {
+    if (line === avdName) {
+      result = true
+    }
+  })
+  return result
+}
 
 async function startEmulator(avdName, resolution, verbose) {
   checkShellCommand('emulator')
