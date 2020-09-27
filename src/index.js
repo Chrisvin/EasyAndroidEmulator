@@ -73,6 +73,11 @@ class EasyAndroidEmulatorCommand extends Command {
       await createEmulator(avdName, systemImage, verbose)
       cli.action.stop(chalk.green('AVD created'))
       shell.echo()
+
+      cli.action.start('Configuring the AVD setup')
+      await configureEmulator(avdName, resolution, density)
+      cli.action.stop(chalk.green('Done'))
+      shell.echo()
     }
 
     cli.action.start('Running the emulator')
@@ -223,7 +228,7 @@ async function checkForEmulator(avdName) {
 */
 async function startEmulator(avdName, resolution, verbose) {
   checkShellCommand('emulator')
-  return execute(`emulator @${avdName} -skin ${resolution} &`, verbose)
+  return execute(`emulator @${avdName} &`, verbose)
 }
 
 /**
