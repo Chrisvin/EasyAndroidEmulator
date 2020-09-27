@@ -1,4 +1,5 @@
 const {Command, flags} = require('@oclif/command')
+const shell = require('shelljs')
 
 class EasyAndroidEmulatorCommand extends Command {
   async run() {
@@ -24,7 +25,7 @@ class EasyAndroidEmulatorCommand extends Command {
     await createEmulator(avdName, systemImage)
     await startEmulator(avdName)
 
-    // await deleteEmulator(avdName)
+    await deleteEmulator(avdName)
 
     shell.echo(`Bye ${name}`)
   }
