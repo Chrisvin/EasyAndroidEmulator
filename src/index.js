@@ -79,6 +79,13 @@ class EasyAndroidEmulatorCommand extends Command {
     await startEmulator(avdName, resolution, verbose)
     cli.action.stop(chalk.green('Emulator closed'))
     shell.echo()
+
+    if (isAvdAvailable !== true && persistAvd !== true) {
+      cli.action.start(chalk.red('Deleting the emulator'))
+      await deleteEmulator(avdName, verbose)
+      cli.action.stop(chalk.red('Done'))
+      shell.echo()
+    }
   }
 }
 
