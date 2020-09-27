@@ -7,7 +7,7 @@ class EasyAndroidEmulatorCommand extends Command {
   async run() {
     const {flags} = this.parse(EasyAndroidEmulatorCommand)
     const {args} = this.parse(EasyAndroidEmulatorCommand)
-    var name = args.name
+    var device = args.device
     let verbose = flags.verbose
     let persistAvd = flags.persist
 
@@ -22,18 +22,16 @@ class EasyAndroidEmulatorCommand extends Command {
     // 6. Start the emulator using `emulator`.
     // 7. Unless the user has choosen to persist the avd, delete the avd using `avdmanager`
 
-    shell.echo(`Hello ${name}`)
+    if (!device) {
+      let shouldProceed = await cli.confirm('Device not specified, Create emulator with ' + chalk.green('Pixel 3 XL') + ' specs? (y/n)')
+      if (!shouldProceed) {
+        return
+      }
+      device = 'Pixel 3 XL'
+    }
 
-    let avdName = 'generic_30'
-    let systemImage = 'system-images;android-30;google_apis_playstore;x86'
+    shell.echo()
 
-    await downloadSystemImage(systemImage)
-    await createEmulator(avdName, systemImage)
-    await startEmulator(avdName)
-
-    await deleteEmulator(avdName)
-
-    shell.echo(`Bye ${name}`)
   }
 }
 
