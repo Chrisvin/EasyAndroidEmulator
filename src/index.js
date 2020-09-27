@@ -90,9 +90,8 @@ async function execute(cmd) {
   })
 }
 
-EasyAndroidEmulatorCommand.description = `Create and run android emulators in a quick &amp; easy manner with just device name/model.
-...
-Extra documentation goes here
+EasyAndroidEmulatorCommand.description = `Create and run android emulators with just device name/model.
+Create and run android emulators in a quick & easy manner with just device name/model. Use the various flags to customize the emulator as per your requirements.
 `
 
 EasyAndroidEmulatorCommand.args = [
