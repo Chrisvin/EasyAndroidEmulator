@@ -62,15 +62,17 @@ async function deleteEmulator(avdName) {
   }
 
   return execute(`avdmanager --verbose delete avd --name  "${avdName}"`)
+
+async function startEmulator(avdName, resolution, verbose) {
+  checkShellCommand('emulator')
+  return execute(`emulator @${avdName} -skin ${resolution} &`, verbose)
 }
 
-async function startEmulator(avdName) {
-  if (!shell.which('emulator')) {
-    shell.echo('Sorry, this script requires emulator')
+function checkShellCommand(command) {
+  if (!shell.which(`${command}`)) {
+    shell.echo(`Sorry, this scrip requires ${command}`)
     shell.exit(1)
   }
-
-  return execute(`emulator @${avdName} &`)
 }
 
 /**
