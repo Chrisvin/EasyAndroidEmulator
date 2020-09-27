@@ -221,7 +221,7 @@ Create and run android emulators in a quick & easy manner with just device name/
 
 EasyAndroidEmulatorCommand.args = [
   {
-    device: 'device',
+    name: 'device',
     description: 'Device name or model',
     required: false
   }
