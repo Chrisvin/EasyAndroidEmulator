@@ -32,6 +32,26 @@ class EasyAndroidEmulatorCommand extends Command {
 
     shell.echo()
 
+    cli.action.start('Getting device specs for ' + chalk.greenBright.underline.bold(`${device}`))
+    await cli.wait(1000) // Reading the CSV & determining the specs
+    cli.action.stop(chalk.green('Specs determined\n'))
+
+    let deviceName = 'Pixel 3 XL'
+    let deviceModel = 'crosshatch'
+    let androidVersion = 30
+    let preferredAbi = 'x86'
+    let avdName = `${deviceName.replace(/ /g, '_')}_API_${androidVersion}`
+    let resolution = '1080x1920' // '1440x2960'
+    let density = 560
+
+    shell.echo('Specs for ' + chalk.greenBright.bold(`${deviceName} (${deviceModel}) `) + '-')
+    shell.echo('Android Version: ' + chalk.greenBright.bold(`${androidVersion}`))
+    shell.echo('Preferred ABI: ' + chalk.greenBright.bold(`${preferredAbi}`))
+    shell.echo('Screen Resolution: ' + chalk.greenBright.bold(`${resolution}`))
+    shell.echo('Screen Density: ' + chalk.greenBright.bold(`${density}\n`))
+
+    shell.echo('AVD Name: ' + chalk.greenBright.bold(`${avdName}\n`))
+
   }
 }
 
