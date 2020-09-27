@@ -12,6 +12,7 @@ class EasyAndroidEmulatorCommand extends Command {
     let persistAvd = flags.persist
 
     // STEPS:
+    // 0. If no device name or model is given, prompt if Pixel 3 XL device should be used instead?
     // 1. Parse CSV to get specs for the model (will need to check based on both device name & model)
     // 2. Once match spec is found, Check if suitable emulator is already available,
     // 3. If so, directly start the emulator (skip steps 4, 5 & 7)
