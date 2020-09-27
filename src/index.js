@@ -52,7 +52,7 @@ class EasyAndroidEmulatorCommand extends Command {
 
     shell.echo('AVD Name: ' + chalk.greenBright.bold(`${avdName}\n`))
 
-    let isAvdAvailable = await checkForAvd(avdName)
+    let isAvdAvailable = await checkForEmulator(avdName)
     if (isAvdAvailable === true) {
       shell.echo('AVD available\n')
     } else {
@@ -179,7 +179,7 @@ async function deleteEmulator(avdName, verbose) {
 * Checks if AVD with given name is already available
 * @param {String} avdName Name of the AVD
 */
-async function checkForAvd(avdName) {
+async function checkForEmulator(avdName) {
   checkShellCommand('avdmanager')
 
   let {stdout} = await execute('emulator -list-avds')
