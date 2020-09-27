@@ -1,10 +1,15 @@
 const {Command, flags} = require('@oclif/command')
+const {cli} = require('cli-ux')
+const chalk = require('chalk')
 const shell = require('shelljs')
 
 class EasyAndroidEmulatorCommand extends Command {
   async run() {
     const {flags} = this.parse(EasyAndroidEmulatorCommand)
-    const name = flags.name || 'Pixel 3 XL'
+    const {args} = this.parse(EasyAndroidEmulatorCommand)
+    var name = args.name
+    let verbose = flags.verbose
+    let persistAvd = flags.persist
 
     // STEPS:
     // 1. Parse CSV to get specs for the model (will need to check based on both device name & model)
