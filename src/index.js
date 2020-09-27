@@ -89,7 +89,37 @@ class EasyAndroidEmulatorCommand extends Command {
   }
 }
 
+async function findSystemImage(androidVersion, preferredAbi, verbose) {
+  checkShellCommand('sdkmanager')
+
+  var systemImage = ''
+  var tag = ''
+  var abi = ''
+  if (shell.which('find')) {
+    // Probably a windows system
+    let {stdout} = await execute(`sdkmanager --list --verbose | find "${androidVersion}"`, verbose)
+    let imagesWithPreferedAbi = stdout.toString().split('\n')
+    imagesWithPreferedAbi.forEach(function (line) {
+      if (line.includes('system-images')) {
+        if (line.includes(`${preferredAbi}`)) {
+          //
+          systemImage = line
+          let words = line.split(';')
+          abi = words.pop()
+          tag = words.pop()
+        } else if (systemImage === '') {
+          //
+        }
+      }
+    })
+  } else if (shell.which('grep')) {
+    // Probably unix based system
+  } else {
+    // Have to go the hard route of parsing output line by line.
+    // systemImage = `system-images;android-${androidVersion};${api};${preferredAbi}`
   }
+  return systemImage
+}
 
 async function downloadSystemImage(systemImage, verbose) {
   checkShellCommand('sdkmanager')
