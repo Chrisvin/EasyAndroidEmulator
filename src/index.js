@@ -175,6 +175,28 @@ async function deleteEmulator(avdName, verbose) {
   return execute(`avdmanager --verbose delete avd --name  "${avdName}"`, verbose)
 }
 
+async function configureEmulator(avdName, resolution, density) {
+  var userName = ''
+  if (shell.which('id')) {
+    let {stdout} = await execute('id -un')
+    userName = stdout.toString().trim()
+  } else if (shell.which('whoami')) {
+    let {stdout} = await execute('whoami')
+    userName = stdout.toString().split('\\').pop().trim()
+  } else {
+    let {stdout} = await execute('echo %USERNAME%')
+    userName = stdout.toString().trim()
+  }
+
+  var configLocation = ''
+  if (shell.which('grep')) {
+    configLocation = `~\\.android\\avd\\${avdName}.avd\\config.ini`
+  } else {
+    configLocation = `C:\\Users\\${userName}\\.android\\avd\\${avdName}.avd\\config.ini`
+  }
+  return execute(`echo skin.name=${resolution} >> ${configLocation} | echo hw.lcd.density=${density} >> ${configLocation} | echo hw.mainKeys=yes >> ${configLocation} | echo hw.keyboard=yes >> ${configLocation}`)
+}
+
 /**
 * Checks if AVD with given name is already available
 * @param {String} avdName Name of the AVD
