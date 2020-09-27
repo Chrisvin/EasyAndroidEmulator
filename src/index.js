@@ -40,8 +40,8 @@ class EasyAndroidEmulatorCommand extends Command {
     let deviceModel = 'crosshatch'
     let androidVersion = 30
     let preferredAbi = 'x86'
-    let avdName = `${deviceName.replace(/ /g, '_')}_API_${androidVersion}`
     let resolution = '1080x1920' // '1440x2960'
+    let avdName = flags.name || `${deviceName.replace(/ /g, '_')}_API_${androidVersion}`
     let density = 560
 
     shell.echo('Specs for ' + chalk.greenBright.bold(`${deviceName} (${deviceModel}) `) + '-')
@@ -252,6 +252,12 @@ EasyAndroidEmulatorCommand.flags = {
     description: 'persist the created avd (makes it faster for subsequent runs)',
     required: false,
     default: false,
+  }),
+  // add --name or -n flag to name the AVD
+  name: flags.string({
+    char: 'n',
+    description: 'name of the AVD to be (created &) used',
+    required: false,
   }),
 }
 
