@@ -74,6 +74,11 @@ class EasyAndroidEmulatorCommand extends Command {
       cli.action.stop(chalk.green('AVD created'))
       shell.echo()
     }
+
+    cli.action.start('Running the emulator')
+    await startEmulator(avdName, resolution, verbose)
+    cli.action.stop(chalk.green('Emulator closed'))
+    shell.echo()
   }
 }
 
