@@ -91,10 +91,23 @@ Extra documentation goes here
 
 EasyAndroidEmulatorCommand.flags = {
   // add --version flag to show CLI version
-  version: flags.version({char: 'v'}),
+  version: flags.version(),
   // add --help flag to show CLI version
   help: flags.help({char: 'h'}),
-  name: flags.string({char: 'n', description: 'name to print'}),
+  // add --verbose or -v flag to show verbose logs
+  verbose: flags.boolean({
+    char: 'v',
+    description: 'show verbose logs',
+    required: false,
+    default: false,
+  }),
+  // add --persist or -p flag to persist avd
+  persist: flags.boolean({
+    char: 'p',
+    description: 'persist the created avd (makes it faster for subsequent runs)',
+    required: false,
+    default: false,
+  }),
 }
 
 module.exports = EasyAndroidEmulatorCommand
