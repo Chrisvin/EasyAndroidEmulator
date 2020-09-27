@@ -52,6 +52,28 @@ class EasyAndroidEmulatorCommand extends Command {
 
     shell.echo('AVD Name: ' + chalk.greenBright.bold(`${avdName}\n`))
 
+    let isAvdAvailable = await checkForAvd(avdName)
+    if (isAvdAvailable === true) {
+      shell.echo('AVD available\n')
+    } else {
+      shell.echo('AVD unavailable, creating new AVD\n')
+
+      cli.action.start('Determining most suitable system image')
+      let systemImage = await findSystemImage(androidVersion, preferredAbi, verbose)
+      cli.action.stop(chalk.green('Determined\n'))
+      this.log(chalk.greenBright.bold(`${systemImage}`))
+      shell.echo()
+
+      cli.action.start('Setting up system image for AVD')
+      await downloadSystemImage(systemImage, verbose)
+      cli.action.stop(chalk.green('Finished'))
+      shell.echo()
+
+      cli.action.start('Creating AVD for emulator')
+      await createEmulator(avdName, systemImage, verbose)
+      cli.action.stop(chalk.green('AVD created'))
+      shell.echo()
+    }
   }
 }
 
