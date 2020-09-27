@@ -89,6 +89,12 @@ class EasyAndroidEmulatorCommand extends Command {
   }
 }
 
+/**
+* Finds the most suitable system image given the android version & preferred ABI.
+* @param {String} androidVersion Android version for the AVD
+* @param {String} preferredAbi Preferred ABI for the AVD
+* @param {Boolean} verbose Whether shell results should be verbose (printed on screen) or silent
+*/
 async function findSystemImage(androidVersion, preferredAbi, verbose) {
   checkShellCommand('sdkmanager')
 
@@ -121,21 +127,41 @@ async function findSystemImage(androidVersion, preferredAbi, verbose) {
   return systemImage
 }
 
+/**
+* Downloads the system image through `sdkmanager`.
+* @param {String} systemImage Image of the system for the AVD
+* @param {Boolean} verbose Whether shell results should be verbose (printed on screen) or silent
+*/
 async function downloadSystemImage(systemImage, verbose) {
   checkShellCommand('sdkmanager')
   return execute(`sdkmanager --install "${systemImage}"`, verbose)
 }
 
+/**
+* Creates Emulator AVD with the given name & system image.
+* @param {String} avdName Name of the AVD
+* @param {String} systemImage Image of the system for the AVD
+* @param {Boolean} verbose Whether shell results should be verbose (printed on screen) or silent
+*/
 async function createEmulator(avdName, systemImage, verbose) {
   checkShellCommand('avdmanager')
   return execute(`echo no | avdmanager --verbose create avd --force --name "${avdName}" --package "${systemImage}"`, verbose)
 }
 
+/**
+* Deletes the AVD with the given name
+* @param {String} avdName Name of the AVD
+* @param {Boolean} verbose Whether shell results should be verbose (printed on screen) or silent
+*/
 async function deleteEmulator(avdName, verbose) {
   checkShellCommand('avdmanager')
   return execute(`avdmanager --verbose delete avd --name  "${avdName}"`, verbose)
 }
 
+/**
+* Checks if AVD with given name is already available
+* @param {String} avdName Name of the AVD
+*/
 async function checkForAvd(avdName) {
   checkShellCommand('avdmanager')
 
@@ -150,11 +176,21 @@ async function checkForAvd(avdName) {
   return result
 }
 
+/**
+* Starts the emulator with the given AVD name & resolution.
+* @param {String} avdName Name of the AVD
+* @param {String} resolution Resolution of the emulator
+* @param {Boolean} verbose Whether shell results should be verbose (printed on screen) or silent
+*/
 async function startEmulator(avdName, resolution, verbose) {
   checkShellCommand('emulator')
   return execute(`emulator @${avdName} -skin ${resolution} &`, verbose)
 }
 
+/**
+* Checks if the given command is available & can be called via shellJS.
+* @param {String} command command to check for availability
+*/
 function checkShellCommand(command) {
   if (!shell.which(`${command}`)) {
     shell.echo(`Sorry, this scrip requires ${command}`)
