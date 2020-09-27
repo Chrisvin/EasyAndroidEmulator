@@ -76,11 +76,13 @@ async function startEmulator(avdName) {
 /**
  * Execute shell commands.
  * @param {String} cmd Command to be executed
+ * @param {Boolean} isVerbose Whether shell results should be verbose (printed on screen) or silent
+ * @param {Boolean} isAsync Whether command should be executed asynchronously
  * @return {Object} { stdout: String, stderr: String }
  */
-async function execute(cmd) {
+async function execute(cmd, isVerbose = false, isAsync = false) {
   return new Promise(function (resolve, reject) {
-    shell.exec(cmd, (err, stdout, stderr) => {
+    shell.exec(cmd, {silent: !isVerbose, async: isAsync}, (err, stdout, stderr) => {
       if (err) {
         reject(err)
       } else {
