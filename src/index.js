@@ -207,6 +207,13 @@ async function execute(cmd, isVerbose = false, isAsync = false) {
   return new Promise(function (resolve, reject) {
     shell.exec(cmd, {silent: !isVerbose, async: isAsync}, (err, stdout, stderr) => {
       if (err) {
+        if (!isVerbose) {
+          shell.echo(
+            chalk.red('-----\n') +
+            chalk.redBright('Error occured, run in verbose mode to get more details.\n') +
+            chalk.red('-----\n')
+          )
+        }
         reject(err)
       } else {
         resolve({stdout, stderr})
