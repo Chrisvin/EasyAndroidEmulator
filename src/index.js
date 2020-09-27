@@ -89,33 +89,26 @@ class EasyAndroidEmulatorCommand extends Command {
   }
 }
 
-async function downloadSystemImage(systemImage) {
-  if (!shell.which('sdkmanager')) {
-    shell.echo('Sorry, this scrip requires sdkmanager')
-    shell.exit(1)
   }
 
-  return execute(`sdkmanager --install "${systemImage}"`)
+async function downloadSystemImage(systemImage, verbose) {
+  checkShellCommand('sdkmanager')
+  return execute(`sdkmanager --install "${systemImage}"`, verbose)
 }
 
-async function createEmulator(avdName, systemImage) {
-  if (!shell.which('avdmanager')) {
-    shell.echo('Sorry, this scrip requires avdmanager')
-    shell.exit(1)
-  }
-
-  return execute(`echo no | avdmanager --verbose create avd --force --name "${avdName}" --package "${systemImage}"`)
+async function createEmulator(avdName, systemImage, verbose) {
+  checkShellCommand('avdmanager')
+  return execute(`echo no | avdmanager --verbose create avd --force --name "${avdName}" --package "${systemImage}"`, verbose)
 }
 
-async function deleteEmulator(avdName) {
-  if (!shell.which('avdmanager')) {
-    shell.echo('Sorry, this scrip requires avdmanager')
-    shell.exit(1)
-  }
+async function deleteEmulator(avdName, verbose) {
+  checkShellCommand('avdmanager')
+  return execute(`avdmanager --verbose delete avd --name  "${avdName}"`, verbose)
+}
+
 async function checkForAvd(avdName) {
   checkShellCommand('avdmanager')
 
-  return execute(`avdmanager --verbose delete avd --name  "${avdName}"`)
   let {stdout} = await execute('emulator -list-avds')
   let avds = stdout.toString().split('\r\n')
   var result = false
