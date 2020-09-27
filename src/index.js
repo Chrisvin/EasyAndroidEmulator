@@ -99,8 +99,6 @@ async function findSystemImage(androidVersion, preferredAbi, verbose) {
   checkShellCommand('sdkmanager')
 
   var systemImage = ''
-  var tag = ''
-  var abi = ''
   if (shell.which('find')) {
     // Probably a windows system
     let {stdout} = await execute(`sdkmanager --list --verbose | find "${androidVersion}"`, verbose)
@@ -108,11 +106,7 @@ async function findSystemImage(androidVersion, preferredAbi, verbose) {
     imagesWithPreferedAbi.forEach(function (line) {
       if (line.includes('system-images')) {
         if (line.includes(`${preferredAbi}`)) {
-          //
           systemImage = line
-          let words = line.split(';')
-          abi = words.pop()
-          tag = words.pop()
         } else if (systemImage === '') {
           //
         }
@@ -145,7 +139,11 @@ async function downloadSystemImage(systemImage, verbose) {
 */
 async function createEmulator(avdName, systemImage, verbose) {
   checkShellCommand('avdmanager')
-  return execute(`echo no | avdmanager --verbose create avd --force --name "${avdName}" --package "${systemImage}"`, verbose)
+
+  let words = systemImage.split(';')
+  let abi = words.pop()
+  let tag = words.pop()
+  return execute(`echo no | avdmanager --verbose create avd --force --name "${avdName}" --package "${systemImage}" --tag "${tag}" --abi "${abi}"`, verbose)
 }
 
 /**
