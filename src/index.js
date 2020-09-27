@@ -95,6 +95,14 @@ EasyAndroidEmulatorCommand.description = `Create and run android emulators in a 
 Extra documentation goes here
 `
 
+EasyAndroidEmulatorCommand.args = [
+  {
+    device: 'device',
+    description: 'Device name or model',
+    required: false
+  }
+]
+
 EasyAndroidEmulatorCommand.flags = {
   // add --version flag to show CLI version
   version: flags.version(),
