@@ -42,3 +42,15 @@ Details of the device are automatically fetched, but if needed, they can be cust
 | --abi | set the preferred ABI for the AVD (Use along with -f flag if AVD already exists) |
 | -r, --resolution | set the resolution of the AVD (Use along with -f flag if AVD already exists). Eg: -r 1080x2160 |
 | -d, --density | set the density of the AVD (Use along with -f flag if AVD already exists). Eg: -d 440 |
+
+## Examples
+
+1. Create emulator with Samsung Galaxy M51 Specs, but with 800x1280 resolution & 240 density, which is persisted for future reuse.
+```sh-session
+$ emulate m51 -r 800x1280 -d 240 -p
+```
+
+2. Create emulator with Pixel 4 Specs, but with android API 25 and x86_64 ABI. (With verbose logs)
+```sh-session
+$ emulate "Pixel 4" --android 25 --abi x86_64 -v
+```
