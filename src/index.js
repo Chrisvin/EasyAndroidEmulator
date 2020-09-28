@@ -324,6 +324,13 @@ EasyAndroidEmulatorCommand.flags = {
     description: 'name of the AVD to be (created &) used',
     required: false,
   }),
+  // add --force or -f flag to force recreation of the AVD (if it's already available)
+  force: flags.boolean({
+    char: 'f',
+    description: 'force recreation of the emulator avd',
+    required: false,
+    default: false,
+  }),
 }
 
 module.exports = EasyAndroidEmulatorCommand
