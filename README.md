@@ -10,15 +10,24 @@ EasyAndroidEmulator
 
 Create and run android emulators in a quick & easy manner with just device name/model.
 Use the various flags to customize the emulator as per your requirements.
+
+## Setting up the dependency
 ### Install using npm
 ```sh-session
 $ npm install -g EasyAndroidEmulator
 ```
-Following which, the keyword `emulate` can be used to quickly emulate android devices.
+
+## Usage
+### Just call `emulate` to for default device
+```sh-session
+$ emulate
+```
 ### Pass in Device Name or Model as the argument
 ```sh-session
 $ emulate "Pixel 4 XL"
 ```
+
+Details of the device are automatically fetched, but if needed, they can be customized using the appropriate flags.
 
 ## Flags
 | Flag | Description |
