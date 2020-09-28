@@ -347,6 +347,28 @@ EasyAndroidEmulatorCommand.flags = {
     required: false,
     default: false,
   }),
+  // add -android flag to set the android API level for the AVD (Use along with -f flag if AVD already exists)
+  android: flags.integer({
+    description: 'set the android API level for the AVD (Use along with -f flag if AVD already exists)',
+    required: false,
+  }),
+  // add -abi flag to set the preferred ABI for the AVD (Use along with -f flag if AVD already exists)
+  abi: flags.string({
+    description: 'set the preferred ABI for the AVD (Use along with -f flag if AVD already exists)',
+    required: false,
+  }),
+  // add --resolution or -r to set the resolution of the AVD (Use along with -f flag if AVD already exists)
+  resolution: flags.string({
+    char: 'r',
+    description: 'set the resolution of the AVD (Use along with -f flag if AVD already exists)',
+    required: false,
+  }),
+  // add --density or -d to set the density of the AVD (Use along with -f flag if AVD already exists)
+  avd: flags.string({
+    char: 'n',
+    description: 'set the density of the AVD (Use along with -f flag if AVD already exists)',
+    required: false,
+  }),
 }
 
 module.exports = EasyAndroidEmulatorCommand
