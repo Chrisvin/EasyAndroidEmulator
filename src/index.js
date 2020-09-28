@@ -364,9 +364,9 @@ EasyAndroidEmulatorCommand.flags = {
     required: false,
   }),
   // add --density or -d to set the density of the AVD (Use along with -f flag if AVD already exists)
-  avd: flags.string({
-    char: 'n',
     description: 'set the density of the AVD (Use along with -f flag if AVD already exists)',
+  density: flags.integer({
+    char: 'd',
     required: false,
   }),
 }
