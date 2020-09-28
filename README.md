@@ -17,12 +17,14 @@ Use the various flags to customize the emulator as per your requirements.
 $ npm install easy-android-emulator -g
 ```
 
+### `sdkmanager`, `avdmanager` & `emulator` need to be accessible via command line
+
 ## Usage
-### Just call `emulate` to for default device
+### Just call `emulate` to emulate the default device
 ```sh-session
 $ emulate
 ```
-### Pass in Device Name or Model as the argument
+### Pass in Device Name or Model as the argument to emulate specific device
 ```sh-session
 $ emulate "Pixel 4 XL"
 ```
