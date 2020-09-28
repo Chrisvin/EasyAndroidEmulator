@@ -149,7 +149,7 @@ async function findSystemImage(androidVersion, preferredAbi, verbose) {
 function getSuitableSystemImage(images, preferredAbi) {
   var resultImage = ''
   images.forEach(function (line) {
-    if (line.includes('system-images')) {
+    if (line.includes('system-images;')) {
       if (line.includes(`${preferredAbi}`)) {
         if (!resultImage.includes(`${preferredAbi}`) || line.includes('default') || line.includes('google_apis') || line.includes('google_apis_playstore')) {
           resultImage = line
