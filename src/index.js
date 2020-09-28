@@ -34,16 +34,27 @@ class EasyAndroidEmulatorCommand extends Command {
     shell.echo()
 
     cli.action.start('Getting device specs for ' + chalk.greenBright.underline.bold(`${device}`))
-    await cli.wait(1000) // Reading the CSV & determining the specs
+    let deviceDetail = await findDeviceDetails(device)
+    let deviceDetails = deviceDetail.split(',')
+    if (deviceDetails.length < 9) {
+      cli.action.stop(chalk.red('Failed\n'))
+      shell.echo(chalk.red('Failed to determine suitable specs for ') + chalk.greenBright.underline.bold(`${device}`))
+      shell.echo(chalk.redBright('Try again with different device.'))
+      return
+    }
     cli.action.stop(chalk.green('Specs determined\n'))
 
-    let deviceName = 'Pixel 3 XL'
-    let deviceModel = 'crosshatch'
-    let androidVersion = 30
-    let preferredAbi = 'x86'
-    let resolution = '1080x1920' // '1440x2960'
+    let deviceManufacturer = deviceDetails[0]
+    let deviceName = deviceDetails[1]
+    let deviceModel = deviceDetails[2]
+    let rams = deviceDetails[3].split('-')
+    let ram = rams[rams.length - 1]
+    let resolution = deviceDetails[6]
+    let density = deviceDetails[7]
+    let preferredAbi = deviceDetails[8].split(';').pop() || 'x86'
+    let androidVersion = deviceDetails[9].split(';').pop()
+
     let avdName = flags.name || `${deviceName.replace(/ /g, '_')}_API_${androidVersion}`
-    let density = 560
 
     shell.echo('Specs for ' + chalk.greenBright.bold(`${deviceName} (${deviceModel}) `) + '-')
     shell.echo('Android Version: ' + chalk.greenBright.bold(`${androidVersion}`))
