@@ -31,7 +31,7 @@ Details of the device are automatically fetched, but if needed, they can be cust
 
 ## Flags
 | Flag | Description |
-| :-: | :-: |
+| :--- | :--- |
 | -h, --help | show CLI help |
 | --version | show CLI version |
 | -v, --verbose | show verbose logs |
