@@ -311,8 +311,8 @@ EasyAndroidEmulatorCommand.args = [
   {
     name: 'device',
     description: 'Device name or model',
-    required: false
-  }
+    required: false,
+  },
 ]
 
 EasyAndroidEmulatorCommand.flags = {
