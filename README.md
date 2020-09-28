@@ -1,14 +1,15 @@
 EasyAndroidEmulator
 ===================
 
-Create and run android emulators in a quick & easy manner with just device name/model. Use the various flags to customize the emulator as per your requirements.
-
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/EasyAndroidEmulator.svg)](https://npmjs.org/package/EasyAndroidEmulator)
 [![Downloads/week](https://img.shields.io/npm/dw/EasyAndroidEmulator.svg)](https://npmjs.org/package/EasyAndroidEmulator)
 [![License](https://img.shields.io/npm/l/EasyAndroidEmulator.svg)](https://github.com/Chrisvin/EasyAndroidEmulator/blob/master/package.json)
 
-## Usage
+<p align="center"><img src="./screenrecording/EasyAndroidEmulator_Demo.gif"/></p>
+
+Create and run android emulators in a quick & easy manner with just device name/model.
+Use the various flags to customize the emulator as per your requirements.
 ### Install using npm
 ```sh-session
 $ npm install -g EasyAndroidEmulator
