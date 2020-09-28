@@ -49,10 +49,10 @@ class EasyAndroidEmulatorCommand extends Command {
     let deviceModel = deviceDetails[2]
     let rams = deviceDetails[3].split('-')
     let ram = rams[rams.length - 1]
-    let resolution = deviceDetails[6]
-    let density = deviceDetails[7]
-    let preferredAbi = deviceDetails[8].split(';').pop() || 'x86'
-    let androidVersion = deviceDetails[9].split(';').pop()
+    let resolution = flags.resolution || deviceDetails[6]
+    let density = flags.density || deviceDetails[7]
+    let preferredAbi = flags.abi || deviceDetails[8].split(';').pop() || 'x86'
+    let androidVersion = flags.android || deviceDetails[9].split(';').pop()
 
     let avdName = flags.name || `${deviceName.replace(/ /g, '_')}_API_${androidVersion}`
 
