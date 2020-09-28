@@ -101,7 +101,7 @@ class EasyAndroidEmulatorCommand extends Command {
     }
 
     cli.action.start('Running the emulator')
-    await startEmulator(avdName, resolution, verbose)
+    await startEmulator(avdName, verbose)
     cli.action.stop(chalk.green('Emulator closed'))
     shell.echo()
 
@@ -247,10 +247,9 @@ async function checkForEmulator(avdName) {
 /**
 * Starts the emulator with the given AVD name & resolution.
 * @param {String} avdName Name of the AVD
-* @param {String} resolution Resolution of the emulator
 * @param {Boolean} verbose Whether shell results should be verbose (printed on screen) or silent
 */
-async function startEmulator(avdName, resolution, verbose) {
+async function startEmulator(avdName, verbose) {
   checkShellCommand('emulator')
   return execute(`emulator @${avdName} &`, verbose)
 }
