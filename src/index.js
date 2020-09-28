@@ -10,6 +10,7 @@ class EasyAndroidEmulatorCommand extends Command {
     var device = args.device
     let verbose = flags.verbose
     let persistAvd = flags.persist
+    let forceAvd = flags.force
 
     // STEPS:
     // 0. If no device name or model is given, prompt if Pixel 3 XL device should be used instead?
@@ -52,7 +53,15 @@ class EasyAndroidEmulatorCommand extends Command {
 
     shell.echo('AVD Name: ' + chalk.greenBright.bold(`${avdName}\n`))
 
-    let isAvdAvailable = await checkForEmulator(avdName)
+    var isAvdAvailable = await checkForEmulator(avdName)
+    if (isAvdAvailable === true && forceAvd) {
+      cli.action.start(chalk.red('Deleting existing AVD'))
+      await deleteEmulator(avdName, verbose)
+      cli.action.stop(chalk.red('Done'))
+      shell.echo()
+      isAvdAvailable = false
+    }
+
     if (isAvdAvailable === true) {
       shell.echo('AVD available\n')
     } else {
