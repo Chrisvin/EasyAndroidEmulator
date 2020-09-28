@@ -95,22 +95,7 @@ class EasyAndroidEmulatorCommand extends Command {
 }
 
 async function findDeviceDetails(device) {
-  let deviceDetails = []
-  if (shell.which('find') && shell.which('type')) {
-    // Probably a windows system
-    let {stdout} = await execute(`type ..\\data\\devices.csv | find "${device}" /i`)
-    deviceDetails = stdout.toString().split(',')
-  } else if (shell.which('grep') && shell.which('cat')) {
-    // Probably unix based system
-    let {stdout} = await execute(`cat ..\\data\\devices.csv | grep "${device} -i"`)
-    deviceDetails = stdout.toString().split(',')
-  } else {
-    // Use Javascript FS to read file & use filter
-    deviceDetails = 'The result from '.toString().split('\n').filter(function (str) {
-      return str.includes(device)
-    }).split(',')
-  }
-  return deviceDetails
+  return shell.grep('-i', `${device}`, `${__dirname}\\..\\data\\devices.csv`)
 }
 
 /**
