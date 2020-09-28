@@ -31,7 +31,8 @@
   },
   "files": [
     "/bin",
-    "/src"
+    "/src",
+    "/data/devices.csv"
   ],
   "homepage": "https://github.com/Chrisvin/EasyAndroidEmulator",
   "keywords": [
