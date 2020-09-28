@@ -1,7 +1,7 @@
 {
   "name": "EasyAndroidEmulator",
   "description": "Create and run android emulators in a quick & easy manner with just device name/model.",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "Chrisvin Jem Peniel",
   "bin": {
     "emulate": "./bin/run"
