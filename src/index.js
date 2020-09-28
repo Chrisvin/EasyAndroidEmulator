@@ -114,6 +114,10 @@ class EasyAndroidEmulatorCommand extends Command {
   }
 }
 
+/**
+* Find the details of the device
+* @param {String} device Device name or model
+*/
 async function findDeviceDetails(device) {
   // Without comma after ${device} , it might result in partial match.
   // Example: Searching for "Pixel 4" might result in "Pixel 4 XL"
@@ -206,6 +210,12 @@ async function deleteEmulator(avdName, verbose) {
   return execute(`avdmanager --verbose delete avd --name  "${avdName}"`, verbose)
 }
 
+/**
+* Configure the emulator avd by modifying the content in config.ini file
+* @param {String} avdName Name of the AVD
+* @param {String} resolution Resolution of the emulator
+* @param {String} density Screen density of the emulator
+*/
 async function configureEmulator(avdName, resolution, density) {
   var userName = ''
   if (shell.which('id')) {
