@@ -360,13 +360,13 @@ EasyAndroidEmulatorCommand.flags = {
   // add --resolution or -r to set the resolution of the AVD (Use along with -f flag if AVD already exists)
   resolution: flags.string({
     char: 'r',
-    description: 'set the resolution of the AVD (Use along with -f flag if AVD already exists)',
+    description: 'set the resolution of the AVD (Use along with -f flag if AVD already exists). Eg: -r 1080x2160',
     required: false,
   }),
   // add --density or -d to set the density of the AVD (Use along with -f flag if AVD already exists)
-    description: 'set the density of the AVD (Use along with -f flag if AVD already exists)',
   density: flags.integer({
     char: 'd',
+    description: 'set the density of the AVD (Use along with -f flag if AVD already exists). Eg: -d 440',
     required: false,
   }),
 }
