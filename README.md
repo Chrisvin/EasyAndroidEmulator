@@ -18,6 +18,7 @@ $ npm install easy-android-emulator -g
 ```
 
 ### `sdkmanager`, `avdmanager` & `emulator` need to be accessible via command line
+Refer to [Setup tutorial article](https://www.androidcentral.com/installing-android-sdk-windows-mac-and-linux-tutorial) if needed.
 
 ## Usage
 ### Just call `emulate` to emulate the default device
