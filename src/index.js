@@ -121,7 +121,7 @@ class EasyAndroidEmulatorCommand extends Command {
 async function findDeviceDetails(device) {
   // Without comma after ${device} , it might result in partial match.
   // Example: Searching for "Pixel 4" might result in "Pixel 4 XL"
-  return shell.grep('-i', `${device},`, `${__dirname}\\..\\data\\devices.csv`)
+  return shell.grep('-i', `${device},`, `${__dirname}/../data/devices.csv`)
 }
 
 /**
